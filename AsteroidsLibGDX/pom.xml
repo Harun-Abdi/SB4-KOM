@@ -42,6 +42,6 @@
             <classifier>natives-desktop</classifier>
             <version>${libgdx.version}</version>
             <scope>compile</scope>
-        </dependency>        
+        </dependency>
     </dependencies>
 </project>
