@@ -53,6 +53,7 @@ public class PlayState extends GameState {
 	
 	public void draw() {
 		player.draw(sr);
+		enemy.draw(sr);
 
 		for (int i = 0; i < bullets.size(); i++){
 			bullets.get(i).draw(sr);
