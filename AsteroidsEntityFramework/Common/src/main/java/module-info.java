@@ -4,6 +4,7 @@ import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
 module Common {
     requires java.desktop; // farver
+    //requires com.badlogic.gdx;
 
 
     exports dk.sdu.mmmi.cbse.common.data;

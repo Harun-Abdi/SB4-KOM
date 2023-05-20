@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-//import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.AsteroidControlSystem;
 import dk.sdu.mmmi.cbse.AsteroidPlugin;
 
 
+import dk.sdu.mmmi.cbse.collision.CollisionChecker;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -89,8 +90,8 @@ public class Game
         entityProcessors.add(bigAsteroidProcess);
 
         // Collision processor
-        //IPostEntityProcessingService collisionProcess = new CollisionChecker();
-        //entityPostProcessors.add(collisionProcess);
+        IPostEntityProcessingService collisionProcess = new CollisionChecker();
+        entityPostProcessors.add(collisionProcess);
 
 
         // Lookup all Game Plugins using ServiceLoader

@@ -3,6 +3,7 @@ import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 
 module Asteroid {
+    exports dk.sdu.mmmi.cbse;
     requires Common;
     requires java.desktop; // farver
 
