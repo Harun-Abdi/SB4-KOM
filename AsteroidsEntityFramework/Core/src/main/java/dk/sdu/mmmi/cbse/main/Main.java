@@ -1,5 +1,4 @@
 package dk.sdu.mmmi.cbse.main;
-
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -15,6 +14,7 @@ public class Main {
 		cfg.resizable = false;
 
 		new LwjglApplication(new Game(), cfg);
+
 	}
 
 }
