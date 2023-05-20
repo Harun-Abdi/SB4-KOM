@@ -1,20 +1,23 @@
 package dk.sdu.mmmi.cbse.enemysystem;
 
+import com.badlogic.gdx.math.MathUtils;
+
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
-import dk.sdu.mmmi.cbse.common.enemy.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
-import java.util.Random;
+
+import java.awt.*;
 
 public class EnemyPlugin implements IGamePluginService {
 
     private Entity enemy;
 
-    public EnemyPlugin(){}
+    public EnemyPlugin() {}
+
 
     @Override
     public void start(GameData gameData, World world) {
@@ -26,31 +29,32 @@ public class EnemyPlugin implements IGamePluginService {
 
     private Entity createEnemyShip(GameData gameData) {
 
-        float deacceleration = 10;
-        float acceleration = 150;
-        float maxSpeed = 200;
-        float rotationSpeed = 5;
-        float x = new Random().nextFloat() * gameData.getDisplayWidth();
-        float y = new Random().nextFloat() * gameData.getDisplayHeight();
-        float radians = 3.1415f / 2;
 
-        float[] colour = new float[4];
-        colour[0] = 1.0f;
-        colour[1] = 0.0f;
-        colour[2] = 0.0f;
-        colour[3] = 1.0f;
+        float deacceleration = 10;
+        float acceleration = 200;
+        float maxSpeed = 300;
+        float rotationSpeed = 5;
+        float x = MathUtils.random(0, gameData.getDisplayWidth());
+        float y = MathUtils.random(0, gameData.getDisplayHeight());
+        float radians = MathUtils.random(0f, (float) (2 * Math.PI));
 
         Entity enemyShip = new Enemy();
-        enemyShip.setRadius(8);
+        enemyShip.setRadius(10);
+
+        float[] enemyShapeX = { -10, 10, 10, -10 };
+        float[] enemyShapeY = { -10, -10, 10, 10 };
+        enemyShip.setShapeX(enemyShapeX);
+        enemyShip.setShapeY(enemyShapeY);
+
+        enemyShip.setColor(new Color(1,0,0,1));
         enemyShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         enemyShip.add(new PositionPart(x, y, radians));
-        enemyShip.add(new LifePart(1,6));
+        enemyShip.add(new LifePart(1,2));
+        //enemyShip.add(new ShootingPart(0.2f));
 
 
         return enemyShip;
     }
-
-
 
     @Override
     public void stop(GameData gameData, World world) {

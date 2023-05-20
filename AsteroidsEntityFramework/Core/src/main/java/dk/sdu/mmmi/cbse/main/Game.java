@@ -5,18 +5,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
+//import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.AsteroidControlSystem;
+import dk.sdu.mmmi.cbse.AsteroidPlugin;
+
+
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
-import dk.sdu.mmmi.cbse.common.enemy.Enemy;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+//import dk.sdu.mmmi.cbse.common.util.SPILocator;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
+
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +37,8 @@ public class Game
 
     private final GameData gameData = new GameData();
     private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
+    private List<IPostEntityProcessingService> entityPostProcessors = new ArrayList<>();
     private List<IGamePluginService> entityPlugins = new ArrayList<>();
-    private List<IPostEntityProcessingService> postEntityProcessors = new ArrayList<>();
-
     private World world = new World();
 
     @Override
@@ -49,18 +57,42 @@ public class Game
                 new GameInputProcessor(gameData)
         );
 
+        // Adding player
         IGamePluginService playerPlugin = new PlayerPlugin();
-        IGamePluginService enemyPlugin = new EnemyPlugin();
-
-
         IEntityProcessingService playerProcess = new PlayerControlSystem();
-        IEntityProcessingService enemyProcess = new EnemyControlSystem();
-
         entityPlugins.add(playerPlugin);
         entityProcessors.add(playerProcess);
 
-        entityPlugins.add(enemyPlugin);
+        // Adding Enemy
+        for (int i = 0; i < MathUtils.random(1, 5); i++) {
+            IGamePluginService enemyPlugin = new EnemyPlugin();
+            entityPlugins.add(enemyPlugin);
+        }
+        IEntityProcessingService enemyProcess = new EnemyControlSystem();
         entityProcessors.add(enemyProcess);
+
+        // Bullet controller
+       // IEntityProcessingService bulletProcess = new BulletControlSystem();
+        //entityProcessors.add(bulletProcess);
+
+
+        // Big Asteroid
+        for (int i = 0; i < MathUtils.random(5, 20); i++) {
+            IGamePluginService bigAsteroidPlugin = new AsteroidPlugin(MathUtils.random(2,3));
+            entityPlugins.add(bigAsteroidPlugin);
+        }
+
+
+
+        // Big Asteroid controller
+        IEntityProcessingService bigAsteroidProcess =  new AsteroidControlSystem();
+        entityProcessors.add(bigAsteroidProcess);
+
+        // Collision processor
+        //IPostEntityProcessingService collisionProcess = new CollisionChecker();
+        //entityPostProcessors.add(collisionProcess);
+
+
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
@@ -84,17 +116,45 @@ public class Game
     }
 
     private void update() {
+        /*
+        // Bullet
+        for (Entity entity : world.getEntities()) {
+            try {
+                ShootingPart shootingPart = entity.getPart(ShootingPart.class);
+
+                if (shootingPart.getShooting()) {
+                    IGamePluginService bulletPlugin = new BulletPlugin(
+                            entity
+                    );
+                    entityPlugins.add(bulletPlugin);
+                    bulletPlugin.start(gameData, world);
+                }
+            } catch (NullPointerException error) {
+                // Part does not shoot
+            }
+        }
+        */
+
+
         // Update
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
         }
+
+        // Collision detection
+        for (IPostEntityProcessingService entityPostProcessorService : entityPostProcessors) {
+            entityPostProcessorService.process(gameData, world);
+        }
     }
 
     private void draw() {
-
         for (Entity entity : world.getEntities()) {
 
-            sr.setColor(1, 1, 1, 1);
+            Color color = entity.getColor();
+            sr.setColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+            sr.setColor(entity.getRed(), entity.getGreen(), entity.getBlue(), entity.getAlpha());
+
+
 
             sr.begin(ShapeRenderer.ShapeType.Line);
 

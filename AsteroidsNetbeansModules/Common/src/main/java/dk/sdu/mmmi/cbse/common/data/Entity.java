@@ -1,6 +1,8 @@
 package dk.sdu.mmmi.cbse.common.data;
 
 import dk.sdu.mmmi.cbse.common.data.entityparts.EntityPart;
+
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
@@ -59,4 +61,7 @@ public class Entity implements Serializable {
         this.shapeY = shapeY;
     }
 
+    // tilføjet for farve
+    public void setColor(Color color) {
+    }
 }
