@@ -8,12 +8,14 @@ module Core {
 
     requires Common;
     requires java.desktop;
-    requires gdx;
+    //requires gdx;
     requires Collision;
     requires Enemy;
     requires Asteroid;
     requires Player;
+    requires gdx;
     requires gdx.backend.lwjgl;
+    //requires gdx.backend.lwjgl;
 
     uses IGamePluginService;
     uses IEntityProcessingService;

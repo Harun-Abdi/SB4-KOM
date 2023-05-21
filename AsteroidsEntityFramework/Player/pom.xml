@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>dk.sdu.mmmi.cbse</groupId>
-        <artifactId>AsteroidsEntityFramework</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <artifactId>asteroidsentityframework</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>Player</artifactId>
     <packaging>jar</packaging>

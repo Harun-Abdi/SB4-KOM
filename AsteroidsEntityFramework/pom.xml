@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 <modelVersion>4.0.0</modelVersion>
     <groupId>dk.sdu.mmmi.cbse</groupId>
-    <artifactId>AsteroidsEntityFramework</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <artifactId>asteroidsentityframework</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>Core</module>
@@ -26,7 +26,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Harun-Abdi Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/Harun-Abdi/SB4-KOM</url> <!-- Update the URL -->
+            <url>https://maven.pkg.github.com/Harun-Abdi/SB4-KOM/AsteroidsEntityFramework</url>
         </repository>
     </distributionManagement>
 

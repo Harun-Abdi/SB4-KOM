@@ -5,9 +5,10 @@ module Enemy {
     exports dk.sdu.mmmi.cbse.enemysystem;
 
     requires Common;
-    requires gdx;
+    //requires gdx;
     requires java.datatransfer;
     requires java.desktop;
+    requires gdx;
 
 
     provides IGamePluginService with dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
