@@ -24,15 +24,6 @@
 
 
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>dk.sdu.mmmi.cbse</groupId>
-                <artifactId>shadedlibgdx</artifactId>
-                <version>1.0.1-SNAPSHOT</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
@@ -79,7 +70,8 @@
                         in "java.lang.module.FindException: Module monitor.observer.zero not found";
                         strange... -->
                         <!--<argument>&#45;&#45;add-modules=monitor.observer.zero</argument>-->
-                        <argument>--module=Core/dk.sdu.student.mialb21.main.Main</argument>
+                        <argument>--module=Core/dk.sdu.mmmi.cbse.main.Main</argument>
+
                     </arguments>
                 </configuration>
             </plugin>

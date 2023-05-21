@@ -13,7 +13,6 @@ module Core {
     requires Enemy;
     requires Asteroid;
     requires Player;
-    requires com.badlogic.gdx;
     requires gdx.backend.lwjgl;
 
     uses IGamePluginService;
